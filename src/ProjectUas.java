@@ -15,7 +15,9 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.multi.MultiLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.plaf.synth.SynthLookAndFeel;
+import userinterface.FrmLogin;
 import userinterface.FrmMain;
+import static userinterface.FrmMain.openForm;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,7 +33,9 @@ public class ProjectUas {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new WindowsClassicLookAndFeel());
-            new FrmMain().setVisible(true);
+            //new FrmMain().setVisible(true);
+            //FrmMain.openForm(new FrmLogin(), "Selamat Datang...");
+            new FrmLogin().setVisible(true);
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ProjectUas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception e){
