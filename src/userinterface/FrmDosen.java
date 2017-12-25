@@ -5,10 +5,10 @@
  */
 package userinterface;
 
+import classes.dboperation.OperationDosen;
 import classes.dboperation.OperationMataKuliah;
-import classes.dboperation.OperationUser;
+import classes.entity.Dosen;
 import classes.entity.MataKuliah;
-import classes.entity.User;
 import java.beans.PropertyVetoException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -16,32 +16,34 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Angga Suta Dharmawan - 16101650
+ * @author Angga Suta Dharmawan 16101650
  */
-public class FrmMataKuliah extends javax.swing.JInternalFrame {
+
+public class FrmDosen extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form FrmMataKuliah
+     * Creates new form FrmDosen
      */
     private DefaultTableModel model;
     // penanda untuk operasi edit apa buat baru
     boolean isEdit = false;
-    
+
     // var untuk menyimpan kode lama, jika seandainya kodenya diganti
     String kodeOld = "";
-    
-    public FrmMataKuliah() {
+
+
+    public FrmDosen() {
         initComponents();
         
         model = new DefaultTableModel();
-        model.addColumn("Kode");       
-        model.addColumn("Nama Mata Kuliah");
-        model.addColumn("SKS");
+        model.addColumn("NIDN");       
+        model.addColumn("Nama Dosen");
+        model.addColumn("Jenis Kelamin");
         
-        tableMataKuliah.setModel(model);
-        tableMataKuliah.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tableMataKuliah.getColumnModel().getColumn(1).setPreferredWidth(170);
-        tableMataKuliah.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tableDosen.setModel(model);
+        tableDosen.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tableDosen.getColumnModel().getColumn(1).setPreferredWidth(170);
+        tableDosen.getColumnModel().getColumn(2).setPreferredWidth(50);
         
         loadData();
     }
@@ -56,15 +58,16 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         cmdKeluar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableMataKuliah = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtKode = new javax.swing.JTextField();
+        txtNidn = new javax.swing.JTextField();
         txtNama = new javax.swing.JTextField();
-        txtSKS = new javax.swing.JTextField();
+        rLakiLaki = new javax.swing.JRadioButton();
+        rPerempuan = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableDosen = new javax.swing.JTable();
         cmdTambah = new javax.swing.JButton();
         cmdSimpan = new javax.swing.JButton();
 
@@ -77,7 +80,20 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
             }
         });
 
-        tableMataKuliah.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("D o s e n");
+
+        jLabel2.setText("NIDN");
+
+        jLabel3.setText("Nama");
+
+        jLabel4.setText("Jenis Kelamin");
+
+        rLakiLaki.setText("Laki - Laki");
+
+        rPerempuan.setText("Perempuan");
+
+        tableDosen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,27 +104,12 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tableMataKuliah.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableDosen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMataKuliahMouseClicked(evt);
+                tableDosenMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableMataKuliah);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("M a t a   K u l i a h");
-
-        jLabel2.setText("Kode");
-
-        jLabel3.setText("Mata Kuliah");
-
-        jLabel4.setText("Jumlah SKS");
-
-        txtKode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        txtNama.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        txtSKS.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane1.setViewportView(tableDosen);
 
         cmdTambah.setText("Tambah");
         cmdTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -131,22 +132,23 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSKS, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(rLakiLaki)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rPerempuan))
+                            .addComponent(txtNidn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cmdTambah)
@@ -158,29 +160,32 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtSKS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtNidn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(rLakiLaki)
+                        .addComponent(rPerempuan)))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdKeluar)
                     .addComponent(cmdTambah)
                     .addComponent(cmdSimpan))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,16 +195,20 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        Vector vMataKuliah = new Vector();
+        Vector vDosen = new Vector();
         try{
-            vMataKuliah = OperationMataKuliah.tampil(0, 0, "", "kode asc");
-            if(vMataKuliah!=null && vMataKuliah.size()>0){
-                for(int i=0; i<vMataKuliah.size(); i++){
-                    MataKuliah mataKuliah = (MataKuliah) vMataKuliah.get(i);
+            vDosen = OperationDosen.tampil(0, 0, "", "nidn asc");
+            if(vDosen!=null && vDosen.size()>0){
+                for(int i=0; i<vDosen.size(); i++){
+                    Dosen dosen = (Dosen) vDosen.get(i);
                     Object[] o = new Object[4];
-                    o[0] = mataKuliah.getKode();
-                    o[1] = mataKuliah.getNama();
-                    o[2] = mataKuliah.getJmlSks();
+                    o[0] = dosen.getNidn();
+                    o[1] = dosen.getNama();
+                    String jenisKelamin = "Laki-laki";
+                    if(dosen.getJenisKelamin().equalsIgnoreCase("P")){
+                        jenisKelamin = "Perempuan";
+                    }
+                    o[2] = jenisKelamin;
                     model.addRow(o);
                 }
             }
@@ -208,10 +217,10 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
         }
     }
     
-    public void kosongkanField(){
-        txtKode.setText("");
+    public void kosongkanData(){
+        isEdit = false;
+        txtNidn.setText("");
         txtNama.setText("");
-        txtSKS.setText("");
     }
     
     private void cmdKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdKeluarActionPerformed
@@ -222,44 +231,53 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmdKeluarActionPerformed
 
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
-        isEdit = false;
-        kosongkanField();
+        kosongkanData();
     }//GEN-LAST:event_cmdTambahActionPerformed
 
     private void cmdSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSimpanActionPerformed
         boolean success = false;
-        if(txtNama.getText().length()<=0 || txtKode.getText().length()<=0){
-            JOptionPane.showMessageDialog(null, "Kode dan Nama tidak boleh kosong", "Perhatian", JOptionPane.ERROR_MESSAGE);
+        if(txtNama.getText().length()<=0 || txtNidn.getText().length()<=0){
+            JOptionPane.showMessageDialog(null, "Nidn dan Nama tidak boleh kosong", "Perhatian", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         //ambil data dari form
-        MataKuliah mataKuliah = new MataKuliah();
-        mataKuliah.setKode(txtKode.getText());
-        mataKuliah.setNama(txtNama.getText());
-        mataKuliah.setJmlSks(Integer.parseInt(txtSKS.getText()));
+        Dosen dosen = new Dosen();
+        dosen.setNidn(txtNidn.getText());
+        dosen.setNama(txtNama.getText());
+        String jenisKelamin = "L";
+        if(rPerempuan.isSelected()){
+            jenisKelamin = "P";
+        }
+        dosen.setJenisKelamin(jenisKelamin);
         
         //simpan data dengan method simpandata
-        success = OperationMataKuliah.simpanData(isEdit, kodeOld, mataKuliah);
+        success = OperationDosen.simpanData(isEdit, kodeOld, dosen);
         if(success){
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            kosongkanField();
+            kosongkanData();
             loadData();
         }
     }//GEN-LAST:event_cmdSimpanActionPerformed
 
-    private void tableMataKuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMataKuliahMouseClicked
-        int selected = tableMataKuliah.getSelectedRow();
+    private void tableDosenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDosenMouseClicked
+        int selected = tableDosen.getSelectedRow();
         if(selected==-1){
             return;
         }
         
         isEdit = true;
         kodeOld = (String) model.getValueAt(selected, 0);
-        txtKode.setText(kodeOld);
+        txtNidn.setText(kodeOld);
         txtNama.setText((String) model.getValueAt(selected, 1));
-        txtSKS.setText(String.valueOf(model.getValueAt(selected, 2)));
-    }//GEN-LAST:event_tableMataKuliahMouseClicked
+        if(String.valueOf(model.getValueAt(selected, 2)).equalsIgnoreCase("Laki-laki")){
+            rLakiLaki.setSelected(true);
+            rPerempuan.setSelected(false);
+        }else{
+            rLakiLaki.setSelected(false);
+            rPerempuan.setSelected(true);
+        }
+    }//GEN-LAST:event_tableDosenMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -271,9 +289,10 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableMataKuliah;
-    private javax.swing.JTextField txtKode;
+    private javax.swing.JRadioButton rLakiLaki;
+    private javax.swing.JRadioButton rPerempuan;
+    private javax.swing.JTable tableDosen;
     private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtSKS;
+    private javax.swing.JTextField txtNidn;
     // End of variables declaration//GEN-END:variables
 }

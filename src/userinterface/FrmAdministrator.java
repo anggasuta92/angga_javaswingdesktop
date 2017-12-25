@@ -135,11 +135,21 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nama Lengkap");
 
+        txtKode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtFullName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jLabel4.setText("Username");
 
         jLabel5.setText("Password");
 
         jLabel6.setText("Ketik Ulang Password");
+
+        txtUsername.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtRetype.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,7 +213,7 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtRetype, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

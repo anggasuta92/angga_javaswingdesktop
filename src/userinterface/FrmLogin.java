@@ -59,7 +59,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel1.setText("Username");
 
+        txtUsername.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jLabel2.setText("Password");
+
+        txtPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         cmdLogin.setText("Login");
         cmdLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +73,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel3.setText("Masukkan NIM Anda untuk absensi...");
@@ -78,28 +83,32 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        lblMatkul.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblMatkul.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMatkul.setText("Mata Kuliah");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel5.setText("Selamat datang,");
 
-        lblNim.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblNim.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNim.setText("NIM");
 
-        lblNama.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblNama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblNama.setText("Nama");
 
-        lblWaktu.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblWaktu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblWaktu.setText("Datang");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,33 +118,31 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblMatkul)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMatkul)
                                     .addComponent(lblNama)
-                                    .addComponent(lblNim))
-                                .addGap(110, 110, 110)
+                                    .addComponent(lblNim)
+                                    .addComponent(lblWaktu))
+                                .addGap(54, 54, 54)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextField3)
-                                    .addComponent(jTextField2)))
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                                    .addComponent(jTextField5)))
+                            .addComponent(jSeparator3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblWaktu)
-                                .addGap(89, 89, 89)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))))
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -172,7 +179,7 @@ public class FrmLogin extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
-                                .addGap(0, 307, Short.MAX_VALUE))
+                                .addGap(0, 309, Short.MAX_VALUE))
                             .addComponent(jSeparator2))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()

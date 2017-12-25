@@ -227,7 +227,7 @@ public class FrmMain extends javax.swing.JFrame {
     }
     
     private void mnDosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDosenActionPerformed
-        // TODO add your handling code here:
+        openForm(new FrmDosen(), "Form Dosen");
     }//GEN-LAST:event_mnDosenActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

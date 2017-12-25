@@ -32,7 +32,7 @@ import static userinterface.FrmMain.openForm;
 public class ProjectUas {
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new WindowsClassicLookAndFeel());
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
             //new FrmMain().setVisible(true);
             //FrmMain.openForm(new FrmLogin(), "Selamat Datang...");
             new FrmLogin().setVisible(true);
