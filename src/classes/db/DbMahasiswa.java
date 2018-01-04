@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.dboperation;
+package classes.db;
 
 import classes.DatabaseConnection;
 import classes.entity.Mahasiswa;
@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -20,9 +21,9 @@ import javax.swing.JOptionPane;
  *
  * @author OxysystemPC
  */
-public class OperationMahasiswa {
-    public static Vector tampil(int start, int limit, String where, String order){
-        Vector result = new Vector();
+public class DbMahasiswa {
+    public static ArrayList tampil(int start, int limit, String where, String order){
+        ArrayList result = new ArrayList();
         
         String sql = "select * from mahasiswa";
         if(where.length()>0){
@@ -60,12 +61,12 @@ public class OperationMahasiswa {
         }
         
         return result;
-    }
+    }    
     
     public static Mahasiswa tampilByNim(String nim){
         Mahasiswa mhs = new Mahasiswa();
         try{
-            Vector result = tampil(0, 0, "nim='"+ nim +"'", "");
+            ArrayList result = tampil(0, 0, "nim='"+ nim +"'", "");
             if(result!=null && result.size()>0){
                 mhs = (Mahasiswa) result.get(0);
             }
@@ -84,10 +85,10 @@ public class OperationMahasiswa {
         try{
             conn = DatabaseConnection.getConnection();
             if(primaryKey.length()>0){
-                preparedStatement = conn.prepareCall(sqlupdate);
+                preparedStatement = conn.prepareStatement(sqlupdate);
                 preparedStatement.setString(9, primaryKey);
             }else{
-                preparedStatement = conn.prepareCall(sqlinsert);
+                preparedStatement = conn.prepareStatement(sqlinsert);
             }
             
             preparedStatement.setString(1, mahasiswa.getNim());

@@ -5,11 +5,12 @@
  */
 package userinterface;
 
-import classes.dboperation.OperationDosen;
-import classes.dboperation.OperationMataKuliah;
+import classes.db.DbDosen;
+import classes.db.DbMataKuliah;
 import classes.entity.Dosen;
 import classes.entity.MataKuliah;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -195,9 +196,9 @@ public class FrmDosen extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        Vector vDosen = new Vector();
+        ArrayList vDosen = new ArrayList();
         try{
-            vDosen = OperationDosen.tampil(0, 0, "", "nidn asc");
+            vDosen = DbDosen.tampil(0, 0, "", "nidn asc");
             if(vDosen!=null && vDosen.size()>0){
                 for(int i=0; i<vDosen.size(); i++){
                     Dosen dosen = (Dosen) vDosen.get(i);
@@ -252,7 +253,7 @@ public class FrmDosen extends javax.swing.JInternalFrame {
         dosen.setJenisKelamin(jenisKelamin);
         
         //simpan data dengan method simpandata
-        success = OperationDosen.simpanData(isEdit, kodeOld, dosen);
+        success = DbDosen.simpanData(isEdit, kodeOld, dosen);
         if(success){
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             kosongkanData();

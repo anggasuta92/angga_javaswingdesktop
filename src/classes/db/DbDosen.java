@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.dboperation;
+package classes.db;
 
 import classes.DatabaseConnection;
+import classes.entity.AnggotaKelas;
 import classes.entity.Dosen;
 import classes.entity.MataKuliah;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -20,9 +22,9 @@ import javax.swing.JOptionPane;
  *
  * @author Angga Suta Dharmawan - 16101650
  */
-public class OperationDosen {
-    public static Vector tampil(int start, int limit, String where, String order){
-        Vector result = new Vector();
+public class DbDosen {
+    public static ArrayList tampil(int start, int limit, String where, String order){
+        ArrayList result = new ArrayList();
         
         String sql = "select * from dosen";
         if(where.length()>0){
@@ -66,10 +68,10 @@ public class OperationDosen {
         try{
             conn = DatabaseConnection.getConnection();
             if(isEdit){
-                preparedStatement = conn.prepareCall(sqlupdate);
+                preparedStatement = conn.prepareStatement(sqlupdate);
                 preparedStatement.setString(4, primaryKey);
             }else{
-                preparedStatement = conn.prepareCall(sqlinsert);
+                preparedStatement = conn.prepareStatement(sqlinsert);
             }
             
             preparedStatement.setString(1, dosen.getNidn());
@@ -90,5 +92,27 @@ public class OperationDosen {
             }
         }
         return result;
+    }
+    
+    public static Dosen tampilByNidn(String nidn){
+        Dosen dosen = new Dosen();
+        try{
+            ArrayList result = tampil(0, 0, "nidn='"+ nidn +"'", "");
+            if(result!=null && result.size()>0){
+                dosen = (Dosen) result.get(0);
+            }
+        }catch(Exception e){}
+        return dosen;
+    }
+    
+    public static Dosen tampilByNama(String nama){
+        Dosen dosen = new Dosen();
+        try{
+            ArrayList result = tampil(0, 0, "nama='"+ nama +"'", "");
+            if(result!=null && result.size()>0){
+                dosen = (Dosen) result.get(0);
+            }
+        }catch(Exception e){}
+        return dosen;
     }
 }

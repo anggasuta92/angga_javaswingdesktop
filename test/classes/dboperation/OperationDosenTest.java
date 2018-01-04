@@ -5,19 +5,15 @@
  */
 package classes.dboperation;
 
+import classes.db.DbDosen;
+import java.util.ArrayList;
 import java.util.Vector;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
 /**
  *
  * @author Angga Suta Dharmawan 16101650
  */
 public class OperationDosenTest {
-    @Test
     public void test_tampil(){
-        Vector test = OperationDosen.tampil(0, 0, "", "");
-        assertNotEquals(0, test.size());
-        assertNotNull(test);
     }
 }

@@ -5,7 +5,7 @@
  */
 package userinterface;
 
-import classes.dboperation.OperationMahasiswa;
+import classes.db.DbMahasiswa;
 import classes.entity.Mahasiswa;
 import java.beans.PropertyVetoException;
 import java.util.Date;
@@ -30,7 +30,7 @@ public class FrmMahasiswaDetail extends javax.swing.JInternalFrame {
         //check edit or add new
         if(nim.length()>0){
             // ini jika edit maka ambil mahasiswa dari database berdasarkan nim
-            mahasiswa = OperationMahasiswa.tampilByNim(nim);
+            mahasiswa = DbMahasiswa.tampilByNim(nim);
         }
         
         //tampilkan data ke form
@@ -309,7 +309,7 @@ public class FrmMahasiswaDetail extends javax.swing.JInternalFrame {
         mahasiswa.setProgramStudi(txtProdi.getSelectedItem().toString());
         mahasiswa.setJurusan(txtJurusan.getSelectedItem().toString());
         mahasiswa.setTahunMasuk(Integer.parseInt(txtTahunMasuk.getText()));
-        boolean isSaved = OperationMahasiswa.simpanData(nimOld, mahasiswa);
+        boolean isSaved = DbMahasiswa.simpanData(nimOld, mahasiswa);
         if(isSaved){
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Infomasi", JOptionPane.INFORMATION_MESSAGE);
         }

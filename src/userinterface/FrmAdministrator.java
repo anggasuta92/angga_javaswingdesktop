@@ -6,7 +6,7 @@
 package userinterface;
 
 import classes.DatabaseConnection;
-import classes.dboperation.OperationUser;
+import classes.db.DbUser;
 import classes.entity.User;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -264,7 +264,7 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
         //simpan data dengan method simpandata
         //cek dulu password sudah sesuai dengan ketik ulang
         if(user.getPassword().equals(String.valueOf(txtRetype.getPassword()))){
-            success = OperationUser.simpanData(isEdit, kodeOld, user);
+            success = DbUser.simpanData(isEdit, kodeOld, user);
             if(success){
                 JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 kosongkanField();
@@ -290,9 +290,9 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        Vector userList = new Vector();
+        ArrayList userList = new ArrayList();
         try{
-            userList = OperationUser.tampil(0, 0, "", "kode asc");
+            userList = DbUser.tampil(0, 0, "", "kode asc");
             if(userList!=null && userList.size()>0){
                 for(int i=0; i<userList.size(); i++){
                     User user = (User) userList.get(i);

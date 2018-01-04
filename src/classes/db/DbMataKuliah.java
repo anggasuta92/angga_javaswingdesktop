@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.dboperation;
+package classes.db;
 
 import classes.DatabaseConnection;
+import static classes.db.DbMahasiswa.tampil;
+import classes.entity.Mahasiswa;
 import classes.entity.MataKuliah;
 import classes.entity.User;
 import java.sql.Connection;
@@ -13,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -20,9 +23,9 @@ import javax.swing.JOptionPane;
  *
  * @author Angga Suta Dharmawan - 16101650
  */
-public class OperationMataKuliah {
-    public static Vector tampil(int start, int limit, String where, String order){
-        Vector result = new Vector();
+public class DbMataKuliah {
+    public static ArrayList tampil(int start, int limit, String where, String order){
+        ArrayList result = new ArrayList();
         
         String sql = "select * from mata_kuliah";
         if(where.length()>0){
@@ -66,10 +69,10 @@ public class OperationMataKuliah {
         try{
             conn = DatabaseConnection.getConnection();
             if(isEdit){
-                preparedStatement = conn.prepareCall(sqlupdate);
+                preparedStatement = conn.prepareStatement(sqlupdate);
                 preparedStatement.setString(4, primaryKey);
             }else{
-                preparedStatement = conn.prepareCall(sqlinsert);
+                preparedStatement = conn.prepareStatement(sqlinsert);
             }
             
             preparedStatement.setString(1, mataKuliah.getKode());
@@ -90,5 +93,29 @@ public class OperationMataKuliah {
             }
         }
         return result;
+    }
+    
+    public static MataKuliah tampilByKode(String kode){
+        MataKuliah matakuliah = new MataKuliah();
+        try{
+            ArrayList result = tampil(0, 0, "kode='"+ kode +"'", "");
+            if(result!=null && result.size()>0){
+                matakuliah = (MataKuliah) result.get(0);
+            }
+        }catch(Exception e){}
+        
+        return matakuliah;
+    }
+    
+    public static MataKuliah tampilByNama(String nama){
+        MataKuliah matakuliah = new MataKuliah();
+        try{
+            ArrayList result = tampil(0, 0, "nama='"+ nama +"'", "");
+            if(result!=null && result.size()>0){
+                matakuliah = (MataKuliah) result.get(0);
+            }
+        }catch(Exception e){}
+        
+        return matakuliah;
     }
 }

@@ -32,9 +32,7 @@ import static userinterface.FrmMain.openForm;
 public class ProjectUas {
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-            //new FrmMain().setVisible(true);
-            //FrmMain.openForm(new FrmLogin(), "Selamat Datang...");
+            UIManager.setLookAndFeel(new WindowsClassicLookAndFeel());
             new FrmLogin().setVisible(true);
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ProjectUas.class.getName()).log(Level.SEVERE, null, ex);

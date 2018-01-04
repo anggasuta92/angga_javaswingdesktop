@@ -5,11 +5,12 @@
  */
 package userinterface;
 
-import classes.dboperation.OperationMataKuliah;
-import classes.dboperation.OperationUser;
+import classes.db.DbMataKuliah;
+import classes.db.DbUser;
 import classes.entity.MataKuliah;
 import classes.entity.User;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -190,9 +191,9 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         
-        Vector vMataKuliah = new Vector();
+        ArrayList vMataKuliah = new ArrayList();
         try{
-            vMataKuliah = OperationMataKuliah.tampil(0, 0, "", "kode asc");
+            vMataKuliah = DbMataKuliah.tampil(0, 0, "", "kode asc");
             if(vMataKuliah!=null && vMataKuliah.size()>0){
                 for(int i=0; i<vMataKuliah.size(); i++){
                     MataKuliah mataKuliah = (MataKuliah) vMataKuliah.get(i);
@@ -240,7 +241,7 @@ public class FrmMataKuliah extends javax.swing.JInternalFrame {
         mataKuliah.setJmlSks(Integer.parseInt(txtSKS.getText()));
         
         //simpan data dengan method simpandata
-        success = OperationMataKuliah.simpanData(isEdit, kodeOld, mataKuliah);
+        success = DbMataKuliah.simpanData(isEdit, kodeOld, mataKuliah);
         if(success){
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             kosongkanField();

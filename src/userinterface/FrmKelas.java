@@ -5,11 +5,21 @@
  */
 package userinterface;
 
+import classes.db.DbDosen;
+import classes.db.DbKelas;
+import classes.db.DbMataKuliah;
+import classes.entity.Dosen;
+import classes.entity.Kelas;
+import classes.entity.MataKuliah;
+import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author OxysystemPC
+ * @author Angga Suta Dharmawan 16101650
  */
 public class FrmKelas extends javax.swing.JInternalFrame {
 
@@ -25,17 +35,21 @@ public class FrmKelas extends javax.swing.JInternalFrame {
         model.addColumn("Kode");       
         model.addColumn("Nama");
         model.addColumn("Mata Kuliah");
-        model.addColumn("Dosen");
-        model.addColumn("Ruangan");
+        //model.addColumn("Dosen");
+        //model.addColumn("Ruangan");
         model.addColumn("Hari");
         model.addColumn("Waktu");
         
         tableKelas.setModel(model);
-        tableKelas.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tableKelas.getColumnModel().getColumn(1).setPreferredWidth(170);
-        tableKelas.getColumnModel().getColumn(2).setPreferredWidth(50);
-        tableKelas.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tableKelas.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tableKelas.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tableKelas.getColumnModel().getColumn(1).setPreferredWidth(20);
+        tableKelas.getColumnModel().getColumn(2).setPreferredWidth(200);
+        //tableKelas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        //tableKelas.getColumnModel().getColumn(4).setPreferredWidth(10);
+        tableKelas.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tableKelas.getColumnModel().getColumn(4).setPreferredWidth(5);
+        
+        loadData();
     }
 
     /**
@@ -53,7 +67,7 @@ public class FrmKelas extends javax.swing.JInternalFrame {
         cmdKeluar = new javax.swing.JButton();
         cmdTambah = new javax.swing.JButton();
         cmdUbah = new javax.swing.JButton();
-        cmdHapus = new javax.swing.JButton();
+        cmdRombel = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("K e l a s");
@@ -72,12 +86,32 @@ public class FrmKelas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tableKelas);
 
         cmdKeluar.setText("Keluar");
+        cmdKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdKeluarActionPerformed(evt);
+            }
+        });
 
         cmdTambah.setText("Tambah");
+        cmdTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdTambahActionPerformed(evt);
+            }
+        });
 
         cmdUbah.setText("Ubah");
+        cmdUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdUbahActionPerformed(evt);
+            }
+        });
 
-        cmdHapus.setText("Hapus");
+        cmdRombel.setText("Anggota Kelas / Rombel");
+        cmdRombel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRombelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,46 +120,119 @@ public class FrmKelas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cmdTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdUbah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdHapus)
+                        .addComponent(cmdRombel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmdKeluar)
-                        .addContainerGap())))
+                        .addComponent(cmdKeluar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdKeluar)
                     .addComponent(cmdTambah)
                     .addComponent(cmdUbah)
-                    .addComponent(cmdHapus))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmdRombel))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void  loadData(){
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
+        
+        ArrayList listKelas = new ArrayList();
+        try{
+            listKelas = DbKelas.tampil(0, 0, "", "kode asc");
+            if(listKelas!=null && listKelas.size()>0){
+                for(int i=0; i<listKelas.size(); i++){
+                    Kelas kelas = (Kelas) listKelas.get(i);
+                    Object[] o = new Object[5];
+                    o[0] = kelas.getKode();
+                    o[1] = kelas.getNama();
+                    
+                    MataKuliah matkul = new MataKuliah();
+                    try{
+                        matkul = DbMataKuliah.tampilByKode(kelas.getKodeMataKuliah());
+                    }catch(Exception e){}
+                    o[2] = (String) (matkul.getKode().length()>0 ? matkul.getNama() : " - ");
+                    o[3] = (String) kelas.getHari();
+                    o[4] = (String) ((kelas.getJamMulai()<10 ? "0" + kelas.getJamMulai() : kelas.getJamMulai()) + ":" + (kelas.getMenitMulai()<10 ? "0" + kelas.getMenitMulai() : kelas.getMenitMulai()) + " - " + (kelas.getJamBerakhir()<10 ? "0" + kelas.getJamBerakhir(): kelas.getJamBerakhir()) + ":" + (kelas.getMenitBerakhir()<10 ? "0" + kelas.getMenitBerakhir() : kelas.getMenitBerakhir()));
+                    model.addRow(o);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void cmdKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdKeluarActionPerformed
+        try {
+            this.setClosed(true);
+        } catch (PropertyVetoException ex) {
+        }
+    }//GEN-LAST:event_cmdKeluarActionPerformed
+
+    private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
+        FrmMain.openForm(new FrmKelasDetail(""), "Editor Kelas");
+        try {
+            this.setClosed(true);
+        } catch (PropertyVetoException ex) {
+        }
+    }//GEN-LAST:event_cmdTambahActionPerformed
+
+    private void cmdUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUbahActionPerformed
+        int selected = tableKelas.getSelectedRow();
+        if(selected==-1){
+            JOptionPane.showMessageDialog(rootPane, "Anda belum memilih data yang akan diubah.");
+            return;
+        }
+        
+        FrmMain.openForm(new FrmKelasDetail(String.valueOf(model.getValueAt(selected, 0))), "Editor Kelas");
+        try {
+            this.setClosed(true);
+        } catch (PropertyVetoException ex) {
+        }
+    }//GEN-LAST:event_cmdUbahActionPerformed
+
+    private void cmdRombelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRombelActionPerformed
+        int selected = tableKelas.getSelectedRow();
+        if(selected==-1){
+            JOptionPane.showMessageDialog(rootPane, "Anda belum memilih kelas...");
+            return;
+        }
+        
+        Kelas kelas = new Kelas();
+        try{
+            kelas = DbKelas.tampilByKode(String.valueOf(model.getValueAt(selected, 0)));
+        }catch(Exception e){}
+        FrmMain.openForm(new FrmAnggotaKelas(kelas), "Anggota Kelas");
+        try {
+            this.setClosed(true);
+        } catch (PropertyVetoException ex) {
+        }
+    }//GEN-LAST:event_cmdRombelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmdHapus;
     private javax.swing.JButton cmdKeluar;
+    private javax.swing.JButton cmdRombel;
     private javax.swing.JButton cmdTambah;
     private javax.swing.JButton cmdUbah;
     private javax.swing.JLabel jLabel1;

@@ -5,9 +5,10 @@
  */
 package userinterface;
 
-import classes.dboperation.OperationMahasiswa;
+import classes.db.DbMahasiswa;
 import classes.entity.Mahasiswa;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -172,9 +173,9 @@ public class FrmMahasiswa extends javax.swing.JInternalFrame {
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
-        Vector vMahasiswa = new Vector();
+        ArrayList vMahasiswa = new ArrayList();
         try{
-            vMahasiswa = OperationMahasiswa.tampil(0, 0, "nim like '%"+ txtCari.getText().trim() +"%' or nama like '%"+ txtCari.getText().trim() +"%'", "");
+            vMahasiswa = DbMahasiswa.tampil(0, 0, "nim like '%"+ txtCari.getText().trim() +"%' or nama like '%"+ txtCari.getText().trim() +"%'", "");
             if(vMahasiswa!=null && vMahasiswa.size()>0){
                 for(int i=0; i<vMahasiswa.size(); i++){
                     Mahasiswa mahasiswa = (Mahasiswa) vMahasiswa.get(i);
@@ -239,7 +240,7 @@ public class FrmMahasiswa extends javax.swing.JInternalFrame {
         String nama = tableMahasiswa.getValueAt(selected, 1).toString();
         int c = JOptionPane.showConfirmDialog(rootPane, "Anda yakin akan menghapus data ini?\n > Nim    : "+nim+"\n > Nama : "+nama, "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if(c==JOptionPane.YES_OPTION){
-            boolean success = OperationMahasiswa.hapusData(nim);
+            boolean success = DbMahasiswa.hapusData(nim);
             if(success){
                 loadData();
                 JOptionPane.showMessageDialog(null, "Data telah dihapus.", "Infomasi", JOptionPane.INFORMATION_MESSAGE);

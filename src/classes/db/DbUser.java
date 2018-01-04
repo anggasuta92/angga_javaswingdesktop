@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.dboperation;
+package classes.db;
 
 import classes.DatabaseConnection;
 import classes.entity.User;
@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author OxysystemPC
  */
-public class OperationUser{
+public class DbUser{
     public static User processLogin(String username, String password){
         User result = new User();
         //generate connection
@@ -30,20 +30,17 @@ public class OperationUser{
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
+            
             while(rs.next()){
-                result.setKode(rs.getString("id"));
-                result.setUsername("username");
-                result.setPassword("password");
+                result.setKode(rs.getString("kode"));
+                result.setFullName(rs.getString("full_name"));
+                result.setUsername(rs.getString("username"));
+                result.setPassword(rs.getString("password"));
             }
             rs.close();
         }catch(SQLException e){
             System.out.println("errProcLogin: "+e.toString());
         }finally{
-            if(conn!=null){
-                try{
-                    conn.close();
-                }catch(SQLException e){}
-            }
         }
         return result;
     }
@@ -66,8 +63,8 @@ public class OperationUser{
         return result;
     }
     
-    public static Vector tampil(int start, int limit, String where, String order){
-        Vector result = new Vector();
+    public static ArrayList tampil(int start, int limit, String where, String order){
+        ArrayList result = new ArrayList();
         
         String sql = "select * from user";
         if(where.length()>0){
@@ -112,10 +109,10 @@ public class OperationUser{
         try{
             conn = DatabaseConnection.getConnection();
             if(isEdit){
-                preparedStatement = conn.prepareCall(sqlupdate);
+                preparedStatement = conn.prepareStatement(sqlupdate);
                 preparedStatement.setString(5, primaryKey);
             }else{
-                preparedStatement = conn.prepareCall(sqlinsert);
+                preparedStatement = conn.prepareStatement(sqlinsert);
             }
             
             preparedStatement.setString(1, user.getKode());

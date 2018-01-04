@@ -5,7 +5,7 @@
  */
 package userinterface;
 
-import classes.dboperation.OperationUser;
+import classes.db.DbUser;
 import classes.entity.User;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -29,11 +29,11 @@ public class FrmMain extends javax.swing.JFrame {
     User userLogin = new User();
     public static JDesktopPane desktopPanex; 
     
-    public FrmMain() {
+    public FrmMain(User user) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //jMenuUtama.setVisible(false);
         this.setLocationRelativeTo(null);
+        this.setTitle(this.getTitle() + " | " + user.getFullName());
         
         //Dimension desktopSize = this.getSize();
         //Dimension jLoginFrameSize = frameLogin.getSize();
@@ -63,13 +63,9 @@ public class FrmMain extends javax.swing.JFrame {
         mnDosen = new javax.swing.JMenuItem();
         mnMahasiswa = new javax.swing.JMenuItem();
         mnKelas = new javax.swing.JMenuItem();
-        mnAnggota = new javax.swing.JMenuItem();
-        mnLibur = new javax.swing.JMenuItem();
-        mnAbsensi = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -95,7 +91,7 @@ public class FrmMain extends javax.swing.JFrame {
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1396, Short.MAX_VALUE)
+            .addGap(0, 454, Short.MAX_VALUE)
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,18 +145,14 @@ public class FrmMain extends javax.swing.JFrame {
         jMenu4.add(mnMahasiswa);
 
         mnKelas.setText("Kelas");
+        mnKelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnKelasActionPerformed(evt);
+            }
+        });
         jMenu4.add(mnKelas);
 
-        mnAnggota.setText("Anggota Kelas");
-        jMenu4.add(mnAnggota);
-
-        mnLibur.setText("Jadwal Libur");
-        jMenu4.add(mnLibur);
-
         jMenuUtama.add(jMenu4);
-
-        mnAbsensi.setText("Absensi");
-        jMenuUtama.add(mnAbsensi);
 
         jMenu6.setText("Laporan");
 
@@ -170,9 +162,6 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuItem9.setText("Laporan Absesnsi Detail");
         jMenu6.add(jMenuItem9);
 
-        jMenuItem10.setText("Laporan Rekapitulasi Absensi");
-        jMenu6.add(jMenuItem10);
-
         jMenuUtama.add(jMenu6);
 
         setJMenuBar(jMenuUtama);
@@ -181,9 +170,7 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(desktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,8 +205,9 @@ public class FrmMain extends javax.swing.JFrame {
                 frame.setVisible(true);
                 
                 Dimension desktopSize = desktopPanex.getSize();
-                Dimension jLoginFrameSize = frame.getSize();
-                frame.setLocation((desktopSize.width - jLoginFrameSize.width)/2, (desktopSize.height - jLoginFrameSize.height)/2);
+                Dimension frameSize = frame.getSize();
+                //frame.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height - frameSize.height)/2);
+                frame.setLocation(10, 10);
             }
         }catch(PropertyVetoException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -245,6 +233,10 @@ public class FrmMain extends javax.swing.JFrame {
     private void mnMatkulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnMatkulActionPerformed
         openForm(new FrmMataKuliah(), "Form Mata Kuliah");
     }//GEN-LAST:event_mnMatkulActionPerformed
+
+    private void mnKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKelasActionPerformed
+        openForm(new FrmKelas(), "Form Kelas");
+    }//GEN-LAST:event_mnKelasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,7 +268,7 @@ public class FrmMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMain().setVisible(true);
+                new FrmMain(new User()).setVisible(true);
             }
         });
     }
@@ -290,16 +282,12 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar jMenuUtama;
-    private javax.swing.JMenu mnAbsensi;
     private javax.swing.JMenuItem mnAdministrator;
-    private javax.swing.JMenuItem mnAnggota;
     private javax.swing.JMenuItem mnDosen;
     private javax.swing.JMenuItem mnKelas;
-    private javax.swing.JMenuItem mnLibur;
     private javax.swing.JMenuItem mnMahasiswa;
     private javax.swing.JMenuItem mnMatkul;
     // End of variables declaration//GEN-END:variables
