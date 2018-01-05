@@ -3,16 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbDosen.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/userinterface/FrmKelas.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbKelas.java</file>
             <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbAbsensi.java</file>
             <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/userinterface/FrmLogin.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/ProjectUas.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/userinterface/FrmAnggotaKelas.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbMahasiswa.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbAnggotaKelas.java</file>
-            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/entity/Absensi.java</file>
+            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/classes/db/DbUser.java</file>
+            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/userinterface/FrmReportAbsen.java</file>
+            <file>file:/H:/1ang64Docx/STIKI%20INDONESIA/Object%20Oriented%20Programming%20-%20V/ProjectUas/src/userinterface/FrmAdministrator.java</file>
         </group>
     </open-files>
 </project-private>

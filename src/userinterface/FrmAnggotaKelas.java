@@ -122,10 +122,9 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableTerdaftar = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         cmdAdd = new javax.swing.JButton();
         cmdRemove = new javax.swing.JButton();
-        cmdBatal = new javax.swing.JButton();
+        cmdKembali = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Kelas");
@@ -165,8 +164,6 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Mahasiswa Terdaftar");
 
-        jButton1.setText("Simpan Kelas");
-
         cmdAdd.setText(">>");
         cmdAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,10 +178,10 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
             }
         });
 
-        cmdBatal.setText("Batal");
-        cmdBatal.addActionListener(new java.awt.event.ActionListener() {
+        cmdKembali.setText("Kembali");
+        cmdKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdBatalActionPerformed(evt);
+                cmdKembaliActionPerformed(evt);
             }
         });
 
@@ -223,10 +220,8 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmdBatal)
-                .addGap(30, 30, 30))
+                .addComponent(cmdKembali)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,22 +248,20 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(cmdBatal))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(cmdKembali)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmdBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBatalActionPerformed
+    private void cmdKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdKembaliActionPerformed
         try {
             FrmMain.openForm(new FrmKelas(), "Form Kelas");
             this.setClosed(true);
         } catch (PropertyVetoException ex) {
         }
-    }//GEN-LAST:event_cmdBatalActionPerformed
+    }//GEN-LAST:event_cmdKembaliActionPerformed
 
     private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAddActionPerformed
         // simpan mahasiswa ke dalam anggota kelas
@@ -317,9 +310,8 @@ public class FrmAnggotaKelas extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdAdd;
-    private javax.swing.JButton cmdBatal;
+    private javax.swing.JButton cmdKembali;
     private javax.swing.JButton cmdRemove;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

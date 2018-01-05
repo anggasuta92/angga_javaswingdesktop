@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import userinterface.FormHandler;
+
 
 /**
  *
@@ -82,6 +82,7 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         txtRetype = new javax.swing.JPasswordField();
+        cmdHapus = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setTitle("Administrator");
@@ -151,6 +152,14 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
 
         txtRetype.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        cmdHapus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cmdHapus.setText("Hapus");
+        cmdHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdHapusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,11 +175,12 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cmdTambah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmdSimpan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmdHapus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cmdClose))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,17 +219,18 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
                     .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtRetype, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdClose)
                     .addComponent(cmdTambah)
-                    .addComponent(cmdSimpan))
+                    .addComponent(cmdSimpan)
+                    .addComponent(cmdHapus))
                 .addContainerGap())
         );
 
@@ -264,18 +275,37 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
         //simpan data dengan method simpandata
         //cek dulu password sudah sesuai dengan ketik ulang
         if(user.getPassword().equals(String.valueOf(txtRetype.getPassword()))){
-            success = DbUser.simpanData(isEdit, kodeOld, user);
-            if(success){
-                JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                kosongkanField();
-                refreshData();
+            if(!isEdit && user.getPassword().length()==0){
+                JOptionPane.showMessageDialog(null, "ulang password tidak boleh kosong...\nSilahkan di cek kembali.", "Perhatian", JOptionPane.ERROR_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(null, "Data gagal disimpan...", "Perhatian", JOptionPane.ERROR_MESSAGE);
+                success = DbUser.simpanData(isEdit, kodeOld, user);
+                if(success){
+                    JOptionPane.showMessageDialog(null, "Data berhasil disimpan...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                    kosongkanField();
+                    refreshData();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Data gagal disimpan...", "Perhatian", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }else{
             JOptionPane.showMessageDialog(null, "Ketik ulang password tidak sesuai...\nSilahkan di cek kembali.", "Perhatian", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmdSimpanActionPerformed
+
+    private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
+        int selected = tableAdmin.getSelectedRow();
+        if(selected==-1){
+            return;
+        }
+        
+        int reply = JOptionPane.showConfirmDialog(null, "Anda yakin akan menghapus " + ((String) tableAdmin.getValueAt(selected, 1)), "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            DbUser.hapusUser((String) tableAdmin.getValueAt(selected, 0));
+            kosongkanField();
+            refreshData();
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus...", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_cmdHapusActionPerformed
     
     public void kosongkanField(){
         txtKode.setText("");
@@ -311,6 +341,7 @@ public class FrmAdministrator extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdClose;
+    private javax.swing.JButton cmdHapus;
     private javax.swing.JButton cmdSimpan;
     private javax.swing.JButton cmdTambah;
     private javax.swing.JLabel jLabel1;

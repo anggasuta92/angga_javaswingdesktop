@@ -57,14 +57,12 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuUtama = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         mnAdministrator = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         mnMatkul = new javax.swing.JMenuItem();
         mnDosen = new javax.swing.JMenuItem();
         mnMahasiswa = new javax.swing.JMenuItem();
         mnKelas = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -108,14 +106,6 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jMenu3.add(mnAdministrator);
 
-        jMenuItem1.setText("Keluar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-
         jMenuUtama.add(jMenu3);
 
         jMenu4.setText("Data Bank");
@@ -155,9 +145,6 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuUtama.add(jMenu4);
 
         jMenu6.setText("Laporan");
-
-        jMenuItem8.setText("Cetak Form Absensi");
-        jMenu6.add(jMenuItem8);
 
         jMenuItem9.setText("Laporan Absesnsi Detail");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -223,10 +210,6 @@ public class FrmMain extends javax.swing.JFrame {
         openForm(new FrmDosen(), "Form Dosen");
     }//GEN-LAST:event_mnDosenActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void mnAdministratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAdministratorActionPerformed
         openForm(new FrmAdministrator(), "Form Administrator");
     }//GEN-LAST:event_mnAdministratorActionPerformed
@@ -290,8 +273,6 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar jMenuUtama;
     private javax.swing.JMenuItem mnAdministrator;

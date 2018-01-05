@@ -28,6 +28,7 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+        txtInfo.setContentType("text/html");
     }
 
     /**
@@ -48,8 +49,8 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cmdAbsen = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtInfo = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtInfo = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,16 +87,8 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        txtInfo.setEditable(false);
-        txtInfo.setBackground(new java.awt.Color(0, 0, 0));
-        txtInfo.setColumns(20);
-        txtInfo.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
-        txtInfo.setForeground(new java.awt.Color(204, 204, 204));
-        txtInfo.setLineWrap(true);
-        txtInfo.setRows(5);
-        txtInfo.setWrapStyleWord(true);
-        txtInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jScrollPane1.setViewportView(txtInfo);
+        txtInfo.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jScrollPane2.setViewportView(txtInfo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,8 +114,8 @@ public class FrmLogin extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(txtNim, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,7 +142,7 @@ public class FrmLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdAbsen)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
@@ -159,9 +152,9 @@ public class FrmLogin extends javax.swing.JFrame {
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
         User user = new User();
         try{
-            //user = DbUser.processLogin(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
-            //if(user.getKode().length()>0){
-            if(true){
+            user = DbUser.processLogin(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
+            if(user.getKode().length()>0){
+            //if(true){
                 this.setVisible(false);
                 FrmMain frmMain = new FrmMain(user);
                 frmMain.setVisible(true);
@@ -221,9 +214,9 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea txtInfo;
+    private javax.swing.JTextPane txtInfo;
     private javax.swing.JTextField txtNim;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;

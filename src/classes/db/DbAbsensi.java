@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,6 +90,18 @@ public class DbAbsensi {
         return sudahAbsen;
     }
     
+    public static String konversiMenitKeJam(int menit){
+        String result = "";
+        int sisaMenit = menit%60;
+        
+        DecimalFormat formater = new DecimalFormat("###");
+        String strJam = formater.format(Math.ceil(menit/60));
+        int jam = Integer.parseInt(strJam);
+        
+        result = (jam<10? "0" + String.valueOf(jam) : String.valueOf(jam)) + " jam " + (sisaMenit<10? "0" + String.valueOf(sisaMenit) : String.valueOf(sisaMenit)) + " menit ";
+        return result;
+    }
+    
     public static String lakukanAbsensi(String nim){
         String result = "";
         
@@ -97,10 +110,10 @@ public class DbAbsensi {
         try{
             mhs = DbMahasiswa.tampilByNim(nim);
             if(mhs.getNim()==null || mhs.getNim().length()==0){
-                return "NIM Anda tidak terdaftar...";
+                return "Maaf.... NIM Anda tidak terdaftar...";
             }
         }catch(Exception e){
-            return "NIM Anda tidak terdaftar...";
+            return "Maaf.... NIM Anda tidak terdaftar...";
         }
         
         //cek tanggal berapa saat ini
@@ -109,6 +122,8 @@ public class DbAbsensi {
         String strHari = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(tanggalSekarang);
         //terjemahkan ke indonesia
         strHari = terjemahkanHariKeIndonesia(strHari);
+        
+        String waktuSekarang = strHari +", "+ new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(tanggalSekarang);
         
         //cek jam sekarang dan ubah dalam bentuk menit
         String jamSekarang = String.valueOf((tanggalSekarang.getHours()*60) + tanggalSekarang.getMinutes());
@@ -139,19 +154,26 @@ public class DbAbsensi {
                 }else{
                     //jika belum absen lakukan absen
                     DbAbsensi.simpanData(absen);
-                    result = mhs.getNama() + " Terima kasih sudah melakukan absensi... \n";
+                    result = "<b>" + mhs.getNim() + " - " + mhs.getNama() + "</b><br/>"
+                           + "Terima kasih sudah melakukan absensi... <br/>"
+                           + "============================================ <br/>"
+                           + "<b>"+ waktuSekarang +"</b>\n"
+                           + "============================================";
                     
                     int mulaiDalamMenit = rs.getInt("mulaidalammenit");
                     int datangDalamMenit = Integer.parseInt(jamSekarang);
                     if(datangDalamMenit<mulaiDalamMenit){
-                        result += "\n"
-                                + "Anda hari ini datang " + String.valueOf(mulaiDalamMenit - datangDalamMenit) + " menit lebih awal";
+                        result += "<br/>"
+                                + "Catatan:<br/>"
+                                + "Anda hari ini datang " + konversiMenitKeJam(mulaiDalamMenit - datangDalamMenit) + " <b>lebih awal</b>";
                     }if(datangDalamMenit==mulaiDalamMenit){
-                        result += "\n"
-                                + "Anda hari ini datang tepat waktu";                    
+                        result += "<br/>"
+                                + "Catatan:<br/>"
+                                + "Anda hari ini datang <b>tepat waktu</b>";                    
                     }else if(datangDalamMenit>mulaiDalamMenit){
-                        result += "\n"
-                                + "Maaf, anda terlambat : " + String.valueOf(datangDalamMenit - mulaiDalamMenit) + " menit.";
+                        result += "<br/>"
+                                + "Catatan:<br/>"
+                                + "Maaf, anda <b>terlambat</b> : " + konversiMenitKeJam(datangDalamMenit - mulaiDalamMenit) + "";
                     }
                 }
             }
@@ -164,6 +186,25 @@ public class DbAbsensi {
             e.printStackTrace();
         }finally{}
 
+        return result;
+    }
+    
+    public static boolean cekKehadiran(String nim, String kodeKelas, Date tanggal){
+        boolean result = false;
+        String tgl = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
+        String sql = "select count(*) as total from absensi where nim='"+ nim +"' and kode_kelas='"+ kodeKelas +"' and tanggal='"+ tgl +"'";
+        try{
+            Connection conn = DatabaseConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                int count = rs.getInt("total");
+                if(count>0){
+                    result = true;
+                }
+            }
+        }catch(Exception e){}
+        
         return result;
     }
     

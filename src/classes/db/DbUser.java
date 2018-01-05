@@ -104,13 +104,20 @@ public class DbUser{
         boolean result = false;
         String sqlinsert = "insert into user (kode, full_name, username, password) values (?,?,?,?)";
         String sqlupdate = "update user set kode=?, full_name=?, username=?, password=? where kode=?";
+        if(user.getPassword().length()==0){
+            sqlupdate = "update user set kode=?, full_name=?, username=? where kode=?";
+        }
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         try{
             conn = DatabaseConnection.getConnection();
             if(isEdit){
                 preparedStatement = conn.prepareStatement(sqlupdate);
-                preparedStatement.setString(5, primaryKey);
+                if(user.getPassword().length()==0){
+                    preparedStatement.setString(4, primaryKey);
+                }else{
+                    preparedStatement.setString(5, primaryKey);
+                }
             }else{
                 preparedStatement = conn.prepareStatement(sqlinsert);
             }
@@ -118,7 +125,9 @@ public class DbUser{
             preparedStatement.setString(1, user.getKode());
             preparedStatement.setString(2, user.getFullName());
             preparedStatement.setString(3, user.getUsername());
-            preparedStatement.setString(4, user.getPassword());
+            if(user.getPassword().length()!=0){
+                preparedStatement.setString(4, user.getPassword());
+            }
             preparedStatement.executeUpdate();            
             
             result = true;
@@ -133,6 +142,19 @@ public class DbUser{
                 }catch(SQLException e){}
             }
         }
+        return result;
+    }
+    
+    public static boolean hapusUser(String kode){
+        boolean result = false;
+        try{
+            String sql = "delete from user where kode=?";
+            Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, kode);
+            pr.executeUpdate();
+            result = true;
+        }catch(SQLException e){}
         return result;
     }
 }
