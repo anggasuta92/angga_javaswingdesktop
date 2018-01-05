@@ -9,6 +9,7 @@ import classes.db.DbAbsensi;
 import classes.db.DbUser;
 import classes.entity.User;
 import java.beans.PropertyVetoException;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -46,9 +47,9 @@ public class FrmLogin extends javax.swing.JFrame {
         txtNim = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cmdAbsen = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInfo = new javax.swing.JTextArea();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,10 +86,15 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
+        txtInfo.setEditable(false);
+        txtInfo.setBackground(new java.awt.Color(0, 0, 0));
         txtInfo.setColumns(20);
-        txtInfo.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        txtInfo.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
+        txtInfo.setForeground(new java.awt.Color(204, 204, 204));
+        txtInfo.setLineWrap(true);
         txtInfo.setRows(5);
-        txtInfo.setText("Selamat datang..\n<= gunakan ini untuk login\n   admin...\n\n\n\n<= ketik NIM disini untuk absen.");
+        txtInfo.setWrapStyleWord(true);
+        txtInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane1.setViewportView(txtInfo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,8 +121,8 @@ public class FrmLogin extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(txtNim, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,7 +174,10 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdLoginActionPerformed
 
     private void cmdAbsenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAbsenActionPerformed
-        DbAbsensi.lakukanAbsensi(txtNim.getText());
+        txtInfo.setText("Sedang mengecek data...");
+        String messages = DbAbsensi.lakukanAbsensi(txtNim.getText());
+        txtNim.setText("");
+        txtInfo.setText(messages);
     }//GEN-LAST:event_cmdAbsenActionPerformed
 
     /**

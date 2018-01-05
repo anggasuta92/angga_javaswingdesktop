@@ -160,6 +160,11 @@ public class FrmMain extends javax.swing.JFrame {
         jMenu6.add(jMenuItem8);
 
         jMenuItem9.setText("Laporan Absesnsi Detail");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem9);
 
         jMenuUtama.add(jMenu6);
@@ -237,6 +242,10 @@ public class FrmMain extends javax.swing.JFrame {
     private void mnKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKelasActionPerformed
         openForm(new FrmKelas(), "Form Kelas");
     }//GEN-LAST:event_mnKelasActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        openForm(new FrmReportAbsen(), "Laporan");
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
